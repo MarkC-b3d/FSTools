@@ -10,7 +10,8 @@ FSTools contains 7 pie menus and 2 layout menus. Some of the menus are nested wi
 This python script requires the 3D creation suite called blender to run, you can download the latest version here:
 https://www.blender.org/download/
 
-Once blender is installed you can then download this addon by clicking
+Once blender is installed you can then download this addon by clicking clone or download:
+![installation instructions cloning](https://i.imgur.com/LD8VORu.png)
 
 # License
 In order to be compliant with the license used at Blender HQ this is licensed under the GPLv2 you can read more about the license at Blender here:
