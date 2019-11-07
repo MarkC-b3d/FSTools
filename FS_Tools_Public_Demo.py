@@ -6,7 +6,7 @@ bl_info = {
     "blender": (2, 80, 0),
     "location": "ALT + Q",
     "warning": "Public demo. Bugs might still exist, please use the appropriate thread for reporting bugs.",
-    "wiki_url": "http://example.com",
+    "wiki_url": "https://github.com/MarkC-b3d/FSTools/issues",
     "category": "User Interface" }
 
 import bpy
