@@ -1,7 +1,7 @@
 bl_info = {
     "name": "FS Tools Public Demo",
     "description": "FSTools is a collection of pie menus to accomodate a fast and efficient workflow in fullscreen",
-    "author": "Mark C",
+    "author": "Mark C - Fourth Level Studios LTD",
     "version": (0, 0, 1),
     "blender": (2, 80, 0),
     "location": "ALT + Q",
