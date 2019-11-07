@@ -85,7 +85,7 @@ class LAYOUT_MT_editor(bpy.types.Menu):
 
     def draw(self, context):
         layout = self.layout
-        
+
         layout.operator("view.editor", icon='VIEW3D')
         layout.operator("uvw.editor", icon='GROUP_UVS')
         layout.operator("shader.editor", icon='SHADING_RENDERED')
