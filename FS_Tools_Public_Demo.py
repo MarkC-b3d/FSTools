@@ -1,6 +1,6 @@
 bl_info = {
     "name": "FS Tools Public Demo",
-    "description": "FS Tools is a collection of pie menus designed to allow the artist to work fullscreen",
+    "description": "FSTools is a collection of pie menus to accomodate a fast and efficient workflow in fullscreen",
     "author": "Mark C",
     "version": (0, 0, 1),
     "blender": (2, 80, 0),
