@@ -21,3 +21,5 @@ Now open blender and go to Edit > Preferences > Addons > Install
 
 Navigate to where you downloaded the FSTools addon folder and "install from file"
 
+# Launching FSTools
+When FSTools is installed and ready to be used it can be activated in object or edit mode with ALT + Q. 
