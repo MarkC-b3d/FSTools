@@ -17,9 +17,11 @@ https://www.blender.org/download/
 Once blender is installed you can then download this addon by clicking clone or download:
 ![installation instructions cloning](https://i.imgur.com/LD8VORu.png)
 
+Extract the .zip to a directory or folder of your choice. (Desktop for example)
+
 Now open blender and go to Edit > Preferences > Addons > Install
 
-Navigate to where you downloaded the FSTools addon folder and "install from file"
+Navigate to where you extracted the FSTools addon folder and "install from file" the FSTools.py file.
 
 # Launching FSTools
 When FSTools is installed and ready to be used it can be activated in object or edit mode with ALT + Q. 
