@@ -14,10 +14,8 @@ import os
 import subprocess
 from bpy.types import Menu
 
-# spawn an edit mode selection pie (run while object is in edit mode to get a valid output)
-
 class PIE_MT_init(Menu):
-    # label is displayed at the center of the pie menu.
+
     bl_idname = "PIE_MT_init"
     bl_label = "FS Tools"
 
@@ -26,8 +24,7 @@ class PIE_MT_init(Menu):
 
 
         pie = layout.menu_pie()
-        # operator_enum will just spread all available options
-        # for the type enum of the operator on the pie
+
         pie.operator("wm.call_menu_pie", text="Snap Tools", icon='SNAP_ON').name = "PIE_MT_snap"
         pie.operator("wm.call_menu_pie", text="Shading Tools", icon='MATSHADERBALL').name = "PIE_MT_shading"
         pie.operator("wm.call_menu_pie", text="FS Ops", icon='SCRIPT').name = "PIE_MT_fsops"
@@ -38,7 +35,7 @@ class PIE_MT_init(Menu):
 #################################################################################################
 
 class PIE_MT_render(Menu):
-    # label is displayed at the center of the pie menu.
+
     bl_idname = "PIE_MT_render"
     bl_label = "Render Engine"
 
@@ -46,8 +43,7 @@ class PIE_MT_render(Menu):
         layout = self.layout
 
         pie = layout.menu_pie()
-        # operator_enum will just spread all available options
-        # for the type enum of the operator on the pie
+
         pie.operator("render.engine_eevee")
         pie.operator("render.engine_cycles")
         pie.operator("render.engine_workbench")
@@ -360,14 +356,14 @@ class PIE_MT_select(Menu):
         pie = layout.menu_pie()
         # operator_enum will just spread all available options
         # for the type enum of the operator on the pie
-        pie.operator("mesh.select_similar", text="ASelect Similar", icon='COPY_ID')
-        pie.operator("mesh.select_random",  text="DSelect Random", icon='MOD_NOISE')
-        pie.operator("mesh.select_nth", text="SChecker Deselect", icon='IMAGE_ZDEPTH')
-        pie.operator("mesh.select_mode", text="WVertex", icon='VERTEXSEL').type = 'VERT'
-        pie.operator("mesh.select_mode", text="QEdge", icon='EDGESEL').type = 'EDGE'
-        pie.operator("mesh.select_mode", text="EFace", icon='FACESEL').type = 'FACE'
-        pie.operator("wm.call_menu_pie", text="ZSnap Tools", icon='SNAP_ON').name = "PIE_MT_snap"
-        pie.operator("mesh.bevel", text="CBevel", icon='MOD_BEVEL')
+        pie.operator("mesh.select_similar", text="(A) Select Similar", icon='COPY_ID')
+        pie.operator("mesh.select_random",  text="(D) Select Random", icon='MOD_NOISE')
+        pie.operator("mesh.select_nth", text="(S) Checker Deselect", icon='IMAGE_ZDEPTH')
+        pie.operator("mesh.select_mode", text="(W) Vertex", icon='VERTEXSEL').type = 'VERT'
+        pie.operator("mesh.select_mode", text="(Q) Edge", icon='EDGESEL').type = 'EDGE'
+        pie.operator("mesh.select_mode", text="(E) Face", icon='FACESEL').type = 'FACE'
+        pie.operator("wm.call_menu_pie", text="(Z) Snap Tools", icon='SNAP_ON').name = "PIE_MT_snap"
+        pie.operator("mesh.bevel", text="(C) Bevel", icon='MOD_BEVEL')
 
 ##################################################################################################
 #Registering
