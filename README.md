@@ -33,3 +33,4 @@ November 2019 will continue to be small additions, code cleanup along with code 
 - [ ] Render presets menu.
 - [ ] Preferences menu for users to toggle between pie menus and layout menu operators.
 - [ ] Writing a wiki on github.
+- [ ] VFX and Motion Tracking tools and menus
