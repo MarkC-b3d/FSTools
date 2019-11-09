@@ -31,4 +31,3 @@ I want to move FSTools to v0.2 by December 2019. November 2019 will continue to 
 - [ ] Render presets menu.
 - [ ] Preferences menu for users to toggle between pie menus and layout menu operators.
 - [ ] Writing a wiki on github.
-- [ ] 
