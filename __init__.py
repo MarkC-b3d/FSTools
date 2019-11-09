@@ -195,6 +195,7 @@ class PIE_MT_fsops(Menu):
         pie.operator("wm.call_menu", text="Community Menu", icon='PRESET').name = "LAYOUT_MT_community"
         pie.operator("quick.cycles", text="Quick Cycles", icon='FF')
         pie.operator("add.dof", text="Add Empty as DOF", icon='EMPTY_AXIS')
+        pie.operator('wm.url_open', text='Order food', icon='MESH_TORUS').url='https://www.google.com/search?q=order+food+online'
 
 
 #################################################################################################
@@ -216,6 +217,7 @@ class QuickCycles(bpy.types.Operator):
     bl_idname = "quick.cycles"
     bl_label = "Speed up cycles rendering by lowering light path bounces"
     def execute(self, context):
+        '''Speed up cycles rendering by lowering light path bounces'''
         bpy.context.scene.cycles.diffuse_bounces = 1
         bpy.context.scene.cycles.glossy_bounces = 1
         bpy.context.scene.cycles.transparent_max_bounces = 1
