@@ -27,6 +27,8 @@ I want to move FSTools to v0.2 by December 2019.
 
 November 2019 will continue to be small additions, code cleanup along with code compliance audit and review.
 
+This is just some of the features I want FSTools to have in the future.
+
 - [ ] An FSTools menu for riggers / animators to use.
 - [ ] Render presets menu.
 - [ ] Preferences menu for users to toggle between pie menus and layout menu operators.
