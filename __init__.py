@@ -1,7 +1,7 @@
 bl_info = {
     "name": "FS Tools Public Demo",
     "description": "FSTools is a collection of pie menus to accomodate a fast and efficient workflow in fullscreen",
-    "author": "Mark C - Fourth Level Studios LTD",
+    "author": "Mark C | Antony Riakiotakis, Sebastian Koenig - Motion Tracking Pie",
     "version": (0, 0, 1),
     "blender": (2, 80, 0),
     "location": "ALT + Q",
@@ -33,6 +33,25 @@ class PIE_MT_init(Menu):
         pie.operator("wm.call_menu_pie", text="View Tools", icon='RESTRICT_VIEW_OFF').name = "PIE_MT_view"
 
 #################################################################################################
+
+class PIE_MT_track(Menu):
+
+    bl_idname = "PIE_MT_track"
+    bl_label = "Tracking Pies"
+
+    def draw(self, context):
+        layout = self.layout
+
+
+        pie = layout.menu_pie()
+
+        pie.operator("wm.call_menu_pie", text="Markers", icon='OUTLINER_OB_EMPTY').name = "PIE_MT_tracking_marker"
+        pie.operator("wm.call_menu_pie", text="Tracking", icon='DECORATE_LINKED').name = "PIE_MT_tracking_track"
+        pie.operator("wm.call_menu_pie", text="Clip Setup", icon='CAMERA_DATA').name = "PIE_MT_clipsetup_pie"
+        pie.operator("wm.call_menu_pie", text="Solver", icon='FILE_SCRIPT').name = "PIE_MT_solver_pie"
+        pie.operator("wm.call_menu_pie", text="Reconstruction", icon='MOD_BUILD').name = "PIE_MT_reconstruction_pie"
+
+####################################################################################################
 
 class PIE_MT_render(Menu):
 
@@ -367,7 +386,183 @@ class PIE_MT_select(Menu):
         pie.operator("wm.call_menu_pie", text="(Z) Snap Tools", icon='SNAP_ON').name = "PIE_MT_snap"
         pie.operator("mesh.bevel", text="(C) Bevel", icon='MOD_BEVEL')
 
+
 ##################################################################################################
+#Clip Pie
+
+class PIE_MT_tracking_marker(Menu):
+    # Settings for the individual markers
+    bl_label = "Marker Settings"
+
+    @classmethod
+    def poll(cls, context):
+        space = context.space_data
+        return space.mode == 'TRACKING'
+
+    def draw(self, context):
+        clip = context.space_data.clip
+        tracks = getattr(getattr(clip, "tracking", None), "tracks", None)
+        track_active = tracks.active if tracks else None
+
+        layout = self.layout
+        pie = layout.menu_pie()
+        # Use Location Tracking
+        prop = pie.operator("wm.context_set_enum", text="Loc", icon='OUTLINER_DATA_EMPTY')
+        prop.data_path = "space_data.clip.tracking.tracks.active.motion_model"
+        prop.value = "Loc"
+        # Use Affine Tracking
+        prop = pie.operator("wm.context_set_enum", text="Affine", icon='OUTLINER_DATA_LATTICE')
+        prop.data_path = "space_data.clip.tracking.tracks.active.motion_model"
+        prop.value = "Affine"
+        # Copy Settings From Active To Selected
+        pie.operator("clip.track_settings_to_track", icon='COPYDOWN')
+        # Make Settings Default
+        pie.operator("clip.track_settings_as_default", icon='SETTINGS')
+        if track_active:
+        # Use Normalization
+            pie.prop(track_active, "use_normalization", text="Normalization")
+        # Use Brute Force
+            pie.prop(track_active, "use_brute", text="Use Brute Force")
+            # Match Keyframe
+            prop = pie.operator("wm.context_set_enum", text="Match Previous", icon='KEYFRAME_HLT')
+            prop.data_path = "space_data.clip.tracking.tracks.active.pattern_match"
+            prop.value = 'KEYFRAME'
+            # Match Previous Frame
+            prop = pie.operator("wm.context_set_enum", text="Match Keyframe", icon='KEYFRAME')
+            prop.data_path = "space_data.clip.tracking.tracks.active.pattern_match"
+            prop.value = 'PREV_FRAME'
+
+
+##################################################################################################
+#Tracking
+
+class PIE_MT_tracking_track(Menu):
+    # Tracking Operators
+    bl_label = "Tracking"
+
+    @classmethod
+    def poll(cls, context):
+        space = context.space_data
+        return space.mode == 'TRACKING'
+
+    def draw(self, context):
+        space = context.space_data
+
+        layout = self.layout
+        pie = layout.menu_pie()
+        # Track Backwards
+        pie.operator("clip.track_markers", icon='TRACKING_BACKWARDS')
+        # Track Forwards
+        pie.operator("clip.track_markers", icon='TRACKING_FORWARDS')
+        # Detect Features
+        pie.operator("clip.detect_features", icon='ZOOM_SELECTED')
+
+
+
+##################################################################################################
+#Clip Setup
+
+class PIE_MT_clipsetup_pie(Menu):
+    # Setup the clip display options
+    bl_label = "Clip and Display Setup"
+
+    def draw(self, context):
+        space = context.space_data
+
+        layout = self.layout
+        pie = layout.menu_pie()
+        # Reload Footage
+        pie.operator("clip.reload", text="Reload Footage", icon='FILE_REFRESH')
+        # Prefetch Footage
+        pie.operator("clip.prefetch", text="Prefetch Footage", icon='LOOP_FORWARDS')
+        # Lock Selection
+        pie.prop(space, "lock_selection", icon='LOCKED')
+        # Set Scene Frames
+        pie.operator("clip.set_scene_frames", text="Set Scene Frames", icon='SCENE_DATA')
+        # Render Undistorted
+        pie.prop(space.clip_user, "use_render_undistorted", text="Render Undistorted")
+        # PIE: Marker Display
+        icon = 'VISIBLE_IPO_ON' if space.show_disabled else 'VISIBLE_IPO_OFF'
+        pie.prop(space, "show_disabled", text="Show Disabled", icon=icon)
+        # Set Active Clip
+        pie.operator("clip.set_active_clip", icon='CLIP')
+        # Mute Footage
+        pie.prop(space, "use_mute_footage", text="Mute Footage", icon='MUTE_IPO_ON')
+
+##################################################################################################
+#Registering
+
+class PIE_MT_solver_pie(Menu):
+    # Operators to solve the scene
+    bl_label = "Solving"
+
+    @classmethod
+    def poll(cls, context):
+        space = context.space_data
+        return space.mode == 'TRACKING'
+
+    def draw(self, context):
+        clip = context.space_data.clip
+        settings = getattr(getattr(clip, "tracking", None), "settings", None)
+
+        layout = self.layout
+        pie = layout.menu_pie()
+        # Clear Solution
+        pie.operator("clip.clear_solution", icon='FILE_REFRESH')
+        # Solve Camera
+        pie.operator("clip.solve_camera", text="Solve Camera", icon='OUTLINER_OB_CAMERA')
+        # Use Tripod Solver
+        if settings:
+            pie.prop(settings, "use_tripod_solver", text="Tripod Solver")
+        # create Plane Track
+        pie.operator("clip.create_plane_track", icon='MATPLANE')
+        # Set Keyframe A
+        pie.operator("clip.set_solver_keyframe", text="Set Keyframe A",
+                    icon='KEYFRAME').keyframe = 'KEYFRAME_A'
+        # Set Keyframe B
+        pie.operator("clip.set_solver_keyframe", text="Set Keyframe B",
+                    icon='KEYFRAME').keyframe = 'KEYFRAME_B'
+        # Clean Tracks
+        prop = pie.operator("clip.clean_tracks", icon='X')
+        # Filter Tracks
+        pie.operator("clip.filter_tracks", icon='FILTER')
+        prop.frames = 15
+        prop.error = 2
+
+
+#################################################################################################
+#Registering
+
+class PIE_MT_reconstruction_pie(Menu):
+    # Scene Reconstruction
+    bl_label = "Reconstruction"
+
+    @classmethod
+    def poll(cls, context):
+        space = context.space_data
+        return space.mode == 'TRACKING'
+
+    def draw(self, context):
+        layout = self.layout
+        pie = layout.menu_pie()
+        # Set Active Clip As Viewport Background
+        pie.operator("clip.set_viewport_background", text="Set Viewport Background", icon='FILE_IMAGE')
+        # Setup Tracking Scene
+        pie.operator("clip.setup_tracking_scene", text="Setup Tracking Scene", icon='SCENE_DATA')
+        # Setup Floor
+        pie.operator("clip.set_plane", text="Setup Floor", icon='MESH_PLANE')
+        # Set Origin
+        pie.operator("clip.set_origin", text="Set Origin", icon='OBJECT_ORIGIN')
+        # Set X Axis
+        pie.operator("clip.set_axis", text="Set X Axis", icon='AXIS_FRONT').axis = 'X'
+        # Set Y Axis
+        pie.operator("clip.set_axis", text="Set Y Axis", icon='AXIS_SIDE').axis = 'Y'
+        # Set Scale
+        pie.operator("clip.set_scale", text="Set Scale", icon='ARROW_LEFTRIGHT')
+        # Apply Solution Scale
+        pie.operator("clip.apply_solution_scale", icon='ARROW_LEFTRIGHT')
+
+#################################################################################################
 #Registering
 
 classes = (
@@ -380,6 +575,12 @@ classes = (
     PIE_MT_shading,
     PIE_MT_snap,
     PIE_MT_select,
+    PIE_MT_tracking_pie,
+    PIE_MT_tracking_marker,
+    PIE_MT_tracking_track,
+    PIE_MT_clipsetup_pie,
+    PIE_MT_solver_pie,
+    PIE_MT_reconstruction_pie,
     EeveeRenOp,
     CyclesRenOp,
     WorkBenchRenOp,
@@ -423,6 +624,12 @@ def register():
         kmi = km.keymap_items.new('wm.call_menu_pie', 'Q', 'PRESS' ,alt=True)
         kmi.properties.name = "PIE_MT_select"
         addon_keymaps.append((km,kmi))
+
+        km = wm.keyconfigs.addon.keymaps.new(name="Clip", space_type='CLIP_EDITOR')
+
+        kmi = km.keymap_items.new("wm.call_menu_pie", 'Q', 'PRESS', alt=True)
+        kmi.properties.name = "PIE_MT_track"
+        addon_keymaps.append((km, kmi))
 
 def unregister():
     for cls in classes:
