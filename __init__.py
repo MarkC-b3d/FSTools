@@ -575,7 +575,7 @@ classes = (
     PIE_MT_shading,
     PIE_MT_snap,
     PIE_MT_select,
-    PIE_MT_tracking_pie,
+    PIE_MT_track,
     PIE_MT_tracking_marker,
     PIE_MT_tracking_track,
     PIE_MT_clipsetup_pie,
