@@ -38,4 +38,4 @@ This is just some of the features I want FSTools to have in the future.
 - [ ] Save and export menus.
 - [ ] UE4 and Unity pipeline tools.
 - [ ] Easy to adjust shader menus.
-- [ ] VFX and motion tracking menus and operators.
+- [x] VFX and motion tracking menus and operators.
