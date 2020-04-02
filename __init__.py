@@ -2,7 +2,7 @@ bl_info = {
     "name": "FS Tools Public Demo",
     "description": "FSTools is a collection of pie menus to accomodate a fast and efficient workflow in fullscreen",
     "author": "Mark C | Antony Riakiotakis, Sebastian Koenig - Motion Tracking Pie",
-    "version": (0, 0, 1),
+    "version": (0, 0, 2),
     "blender": (2, 80, 0),
     "location": "ALT + Q",
     "warning": "Public demo. Bugs might still exist, please use the appropriate thread for reporting bugs.",
