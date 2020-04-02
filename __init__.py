@@ -451,9 +451,13 @@ class PIE_MT_tracking_track(Menu):
         layout = self.layout
         pie = layout.menu_pie()
         # Track Backwards
-        pie.operator("clip.track_markers", icon='TRACKING_BACKWARDS')
+        prop = pie.operator("clip.track_markers", icon='TRACKING_BACKWARDS')
+        prop.backwards = True
+        prop.sequence = True
         # Track Forwards
-        pie.operator("clip.track_markers", icon='TRACKING_FORWARDS')
+        prop = pie.operator("clip.track_markers", icon='TRACKING_FORWARDS')
+        prop.backwards = False
+        prop.sequence = True
         # Detect Features
         pie.operator("clip.detect_features", icon='ZOOM_SELECTED')
 
