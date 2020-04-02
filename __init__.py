@@ -215,6 +215,7 @@ class PIE_MT_fsops(Menu):
         pie.operator("quick.cycles", text="Quick Cycles", icon='FF')
         pie.operator("add.dof", text="Add Empty as DOF", icon='EMPTY_AXIS')
         pie.operator('wm.url_open', text='Order food', icon='MESH_TORUS').url='https://www.google.com/search?q=order+food+online'
+        pie.operator('wm.url_open', text='FSTools Github', icon='SCRIPTPLUGINS').url='https://github.com/MarkC-b3d/FSTools'
 
 
 #################################################################################################
