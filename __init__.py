@@ -31,6 +31,27 @@ class PIE_MT_init(Menu):
         pie.operator("wm.call_menu", text="Editor Tools", icon='PRESET').name = "LAYOUT_MT_editor"
         pie.operator("wm.call_menu_pie", text="Render Tools", icon='BLENDER').name = "PIE_MT_render"
         pie.operator("wm.call_menu_pie", text="View Tools", icon='RESTRICT_VIEW_OFF').name = "PIE_MT_view"
+        pie.operator("wm.call_menu_pie", text="File Tools", icon='FILEBROWSER').name = "PIE_MT_topbar"
+
+#################################################################################################
+
+class PIE_MT_topbar(Menu):
+
+    bl_idname = "PIE_MT_topbar"
+    bl_label = "Topbar Tools"
+
+    def draw(self, context):
+        layout = self.layout
+
+
+        pie = layout.menu_pie()
+
+        pie.operator("wm.call_menu", text="File", icon='PRESET').name = "TOPBAR_MT_file"
+        pie.operator("wm.call_menu", text="Edit", icon='EDITMODE_HLT').name = "TOPBAR_MT_edit"
+        pie.operator("wm.call_menu", text="Render", icon='RESTRICT_RENDER_OFF').name = "TOPBAR_MT_render"
+        pie.operator("wm.call_menu", text="Window", icon='WINDOW').name = "TOPBAR_MT_window"
+        pie.operator("wm.call_menu", text="Help", icon='HELP').name = "TOPBAR_MT_help"
+
 
 #################################################################################################
 
@@ -380,12 +401,29 @@ class PIE_MT_select(Menu):
         # for the type enum of the operator on the pie
         pie.operator("mesh.select_similar", text="(A) Select Similar", icon='COPY_ID')
         pie.operator("mesh.select_random",  text="(D) Select Random", icon='MOD_NOISE')
-        pie.operator("mesh.select_nth", text="(S) Checker Deselect", icon='IMAGE_ZDEPTH')
+        pie.operator("wm.call_menu", text="(S) Select", icon='RESTRICT_SELECT_OFF').name = "VIEW3D_MT_select_edit_mesh"
         pie.operator("mesh.select_mode", text="(W) Vertex", icon='VERTEXSEL').type = 'VERT'
         pie.operator("mesh.select_mode", text="(Q) Edge", icon='EDGESEL').type = 'EDGE'
         pie.operator("mesh.select_mode", text="(E) Face", icon='FACESEL').type = 'FACE'
         pie.operator("wm.call_menu_pie", text="(Z) Snap Tools", icon='SNAP_ON').name = "PIE_MT_snap"
-        pie.operator("mesh.bevel", text="(C) Bevel", icon='MOD_BEVEL')
+        pie.operator("wm.call_menu_pie", text="(C) VEF Tools", icon='FILE_SCRIPT').name = "PIE_MT_vef"
+
+class PIE_MT_vef(Menu):
+    # label is displayed at the center of the pie menu.
+    bl_label = "Select Tools"
+    bl_idname = "PIE_MT_vef"
+
+    def draw(self, context):
+        layout = self.layout
+
+
+        pie = layout.menu_pie()
+        # operator_enum will just spread all available options
+        # for the type enum of the operator on the pie
+        pie.operator("wm.call_menu", text="Verts", icon='VERTEXSEL').name = "VIEW3D_MT_edit_mesh_vertices"
+        pie.operator("wm.call_menu", text="Edges", icon='EDGESEL').name = "VIEW3D_MT_edit_mesh_edges"
+        pie.operator("wm.call_menu", text="Faces", icon='VERTEXSEL').name = "VIEW3D_MT_edit_mesh_faces"
+        pie.operator("wm.call_menu", text="UV", icon='UV').name = "VIEW3D_MT_uv_map"
 
 
 ##################################################################################################
@@ -586,6 +624,8 @@ classes = (
     PIE_MT_clipsetup_pie,
     PIE_MT_solver_pie,
     PIE_MT_reconstruction_pie,
+    PIE_MT_topbar,
+    PIE_MT_vef,
     EeveeRenOp,
     CyclesRenOp,
     WorkBenchRenOp,
