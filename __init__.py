@@ -233,71 +233,71 @@ class PIE_MT_fsops(Menu):
         # operator_enum will just spread all available options
         # for the type enum of the operator on the pie
         pie.operator("wm.call_menu", text="Community Menu", icon='PRESET').name = "LAYOUT_MT_community"
-        pie.operator("wm.call_menu", text="Pipeline Menu", icon='MESH_CYLINDER').name = "LAYOUT_MT_pipeline"
+        #pie.operator("wm.call_menu", text="Pipeline Menu", icon='MESH_CYLINDER').name = "LAYOUT_MT_pipeline"
         pie.operator("quick.cycles", text="Quick Cycles", icon='FF')
         pie.operator("add.dof", text="Add Empty as DOF", icon='EMPTY_AXIS')
         pie.operator('wm.url_open', text='Order food', icon='MESH_TORUS').url='https://www.google.com/search?q=order+food+online'
         pie.operator('wm.url_open', text='FSTools Github', icon='SCRIPTPLUGINS').url='https://github.com/MarkC-b3d/FSTools'
 
 
-class LAYOUT_MT_pipeline(bpy.types.Menu):
-    bl_label = "Pipeline Menu"
-    bl_idname = "LAYOUT_MT_pipeline"
-
-    def draw(self, context):
-        layout = self.layout
-
-        layout.operator("substance.painter", icon='BRUSH_DATA')
-        layout.operator("substance.designer", icon='NODETREE')
-        layout.row().separator()
-        layout.operator("autodesk.maya", icon='ORPHAN_DATA')
-        layout.operator("autodesk.3ds", icon='ORPHAN_DATA')
-        layout.row().separator()
-        layout.operator("unreal.engine", icon='FUND')
-        layout.operator("vfx.natron", icon='OUTLINER_OB_CAMERA')
-
-
-class SubstancePainter(bpy.types.Operator):
-    bl_idname = "substance.painter"
-    bl_label = "Substance Painter"
-    def execute(self, context):
-        subprocess.Popen(["E:\\Substance Painter\\Substance Painter"])
-        return {'FINISHED'}
-
-class SubstanceDesigner(bpy.types.Operator):
-    bl_idname = "substance.designer"
-    bl_label = "Substance Designer"
-    def execute(self, context):
-        subprocess.Popen(["E:\\Substance Designer\\Substance Designer"])
-        return {'FINISHED'}
-
-class Autodesk3DS(bpy.types.Operator):
-    bl_idname = "autodesk.3ds"
-    bl_label = "3DS Max"
-    def execute(self, context):
-        subprocess.Popen(["E:\\3DS_Max\\3ds Max 2018\\3dsmax"])
-        return {'FINISHED'}
-
-class AutodeskMaya(bpy.types.Operator):
-    bl_idname = "autodesk.maya"
-    bl_label = "Autodesk Maya"
-    def execute(self, context):
-        subprocess.Popen(["E:\\Maya\\Maya2018\\bin\\maya"])
-        return {'FINISHED'}
-
-class UnrealEngine(bpy.types.Operator):
-    bl_idname = "unreal.engine"
-    bl_label = "Unreal Engine"
-    def execute(self, context):
-        subprocess.Popen(["D:\\Programs\\UnrealEngine\\Epic Games\\Launcher\\Portal\\Binaries\\Win64\\EpicGamesLauncher"])
-        return {'FINISHED'}
-
-class VFXNatron(bpy.types.Operator):
-    bl_idname = "vfx.natron"
-    bl_label = "Natron"
-    def execute(self, context):
-        subprocess.Popen(["E:\\Natron\\Natron-2.3.14-Windows-x86_64bit-no-installer\\bin\\Natron"])
-        return {'FINISHED'}
+# class LAYOUT_MT_pipeline(bpy.types.Menu):
+#     bl_label = "Pipeline Menu"
+#     bl_idname = "LAYOUT_MT_pipeline"
+#
+#     def draw(self, context):
+#         layout = self.layout
+#
+#         layout.operator("substance.painter", icon='BRUSH_DATA')
+#         layout.operator("substance.designer", icon='NODETREE')
+#         layout.row().separator()
+#         layout.operator("autodesk.maya", icon='ORPHAN_DATA')
+#         layout.operator("autodesk.3ds", icon='ORPHAN_DATA')
+#          layout.row().separator()
+#          layout.operator("unreal.engine", icon='FUND')
+#          layout.operator("vfx.natron", icon='OUTLINER_OB_CAMERA')
+#
+#
+# class SubstancePainter(bpy.types.Operator):
+#     bl_idname = "substance.painter"
+#     bl_label = "Substance Painter"
+#     def execute(self, context):
+#         subprocess.Popen(["E:\\Substance Painter\\Substance Painter"])
+#         return {'FINISHED'}
+#
+# class SubstanceDesigner(bpy.types.Operator):
+#     bl_idname = "substance.designer"
+#     bl_label = "Substance Designer"
+#     def execute(self, context):
+#         subprocess.Popen(["E:\\Substance Designer\\Substance Designer"])
+#         return {'FINISHED'}
+#
+# class Autodesk3DS(bpy.types.Operator):
+#     bl_idname = "autodesk.3ds"
+#     bl_label = "3DS Max"
+#     def execute(self, context):
+#         subprocess.Popen(["E:\\3DS_Max\\3ds Max 2018\\3dsmax"])
+#         return {'FINISHED'}
+#
+# class AutodeskMaya(bpy.types.Operator):
+#     bl_idname = "autodesk.maya"
+#     bl_label = "Autodesk Maya"
+#     def execute(self, context):
+#         subprocess.Popen(["E:\\Maya\\Maya2018\\bin\\maya"])
+#         return {'FINISHED'}
+#
+# class UnrealEngine(bpy.types.Operator):
+#     bl_idname = "unreal.engine"
+#     bl_label = "Unreal Engine"
+#     def execute(self, context):
+#         subprocess.Popen(["D:\\Programs\\UnrealEngine\\Epic Games\\Launcher\\Portal\\Binaries\\Win64\\EpicGamesLauncher"])
+#         return {'FINISHED'}
+#
+# class VFXNatron(bpy.types.Operator):
+#     bl_idname = "vfx.natron"
+#     bl_label = "Natron"
+#     def execute(self, context):
+#         subprocess.Popen(["E:\\Natron\\Natron-2.3.14-Windows-x86_64bit-no-installer\\bin\\Natron"])
+#         return {'FINISHED'}
 
 #################################################################################################
 #fsops_custom operators
@@ -687,12 +687,12 @@ classes = (
     PIE_MT_reconstruction_pie,
     PIE_MT_topbar,
     PIE_MT_vef,
-    SubstancePainter,
-    SubstanceDesigner,
-    UnrealEngine,
-    VFXNatron,
-    Autodesk3DS,
-    AutodeskMaya,
+    # SubstancePainter,
+    # SubstanceDesigner,
+    # UnrealEngine,
+    # VFXNatron,
+    # Autodesk3DS,
+    # AutodeskMaya,
     EeveeRenOp,
     CyclesRenOp,
     WorkBenchRenOp,
