@@ -99,11 +99,16 @@ class PIE_MT_render(Menu):
 
         pie = layout.menu_pie()
 
-        pie.operator("render.engine_eevee")
-        pie.operator("render.engine_cycles")
-        pie.operator("render.engine_workbench")
         pie.menu("LAYOUT_MT_renderpre")
         pie.menu("RENDER_MT_framerate_presets")
+        gap = pie.column()
+        gap.separator()
+        gap.separator()
+        menu = gap.box()
+        menu.scale_x = 2.5
+        menu.operator("render.engine_eevee")
+        menu.operator("render.engine_cycles")
+        menu.operator("render.engine_workbench")
 
 
 class LAYOUT_MT_renpre(bpy.types.Menu):
@@ -520,6 +525,18 @@ class PIE_MT_snap(Menu):
         pie.operator("snap.edge", text="Edge Snap", icon='SNAP_EDGE')
         pie.operator("snap.face", text="Face Snap", icon='SNAP_FACE')
         pie.operator("snap.vertex", text="Vertex Snap", icon='SNAP_VERTEX')
+        pie.operator("snap.volume", text="Volume Snap", icon='SNAP_VOLUME')
+        pie.operator("snap_edge.midpoint", text="Vertex Snap", icon='SNAP_MIDPOINT')
+        pie.operator("snap_edge.perp", text="Vertex Snap", icon='SNAP_PERPENDICULAR')
+        gap = pie.column()
+        gap.separator()
+        gap.separator()
+        menu = gap.box()
+        menu.scale_x = 2.5
+        menu.operator("snap.closest")
+        menu.operator("snap.center")
+        menu.operator("snap.median")
+        menu.operator("snap.active")
 
 class SnapIncrement(bpy.types.Operator):
     bl_idname = "snap.increment"
@@ -547,6 +564,60 @@ class SnapVertex(bpy.types.Operator):
     bl_label = "Snap to Vertex"
     def execute(self, context):
         bpy.context.scene.tool_settings.snap_elements = {'VERTEX'}
+        return {'FINISHED'}
+
+class SnapVolume(bpy.types.Operator):
+    bl_idname = "snap.volume"
+    bl_label = "Snap to Volume"
+    def execute(self, context):
+        bpy.context.scene.tool_settings.snap_elements = {'VOLUME'}
+        return {'FINISHED'}
+
+class SnapEdgeMid(bpy.types.Operator):
+    bl_idname = "snap_edge.midpoint"
+    bl_label = "Snap to Edge Midpoint"
+    def execute(self, context):
+        bpy.context.scene.tool_settings.snap_elements = {'EDGE_MIDPOINT'}
+        return {'FINISHED'}
+
+class SnapEdgePerp(bpy.types.Operator):
+    bl_idname = "snap_edge.perp"
+    bl_label = "Snap to Edge Midpoint"
+    def execute(self, context):
+        bpy.context.scene.tool_settings.snap_elements = {'EDGE_PERPENDICULAR'}
+
+        return {'FINISHED'}
+
+class SnapClosest(bpy.types.Operator):
+    bl_idname = "snap.closest"
+    bl_label = "Snap tp closest"
+    def execute(self, context):
+        bpy.context.scene.tool_settings.snap_target = 'CLOSEST'
+
+        return {'FINISHED'}
+
+class SnapCenter(bpy.types.Operator):
+    bl_idname = "snap.center"
+    bl_label = "Snap to center"
+    def execute(self, context):
+        bpy.context.scene.tool_settings.snap_target = 'CENTER'
+
+        return {'FINISHED'}
+
+class SnapMedian(bpy.types.Operator):
+    bl_idname = "snap.median"
+    bl_label = "Snap to median"
+    def execute(self, context):
+        bpy.context.scene.tool_settings.snap_target = 'MEDIAN'
+
+        return {'FINISHED'}
+
+class SnapActive(bpy.types.Operator):
+    bl_idname = "snap.active"
+    bl_label = "Snap to active"
+    def execute(self, context):
+        bpy.context.scene.tool_settings.snap_target = 'ACTIVE'
+
         return {'FINISHED'}
 
 
@@ -827,6 +898,13 @@ classes = (
     SnapFace,
     SnapEdge,
     SnapIncrement,
+    SnapVolume,
+    SnapEdgeMid,
+    SnapEdgePerp,
+    SnapCenter,
+    SnapMedian,
+    SnapActive,
+    SnapClosest,
     )
 
 addon_keymaps = []
