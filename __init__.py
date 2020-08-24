@@ -300,6 +300,8 @@ class PIE_MT_fsops(Menu):
         pie.operator("wm.call_menu", text="Community Menu", icon='PRESET').name = "LAYOUT_MT_community"
         #pie.operator("wm.call_menu", text="Pipeline Menu", icon='MESH_CYLINDER').name = "LAYOUT_MT_pipeline"
         pie.operator("quick.cycles", text="Quick Cycles", icon='FF')
+        pie.operator("object.prep_ue4", text="Prepare Mesh For UE4", icon='EXPORT')
+        pie.operator("render.final_render", text="Enable All Passes EXR", icon='OUTPUT')
         pie.operator("add.dof", text="Add Empty as DOF", icon='EMPTY_AXIS')
         pie.operator('wm.url_open', text='Order food', icon='MESH_TORUS').url='https://www.google.com/search?q=order+food+online'
         pie.operator('wm.url_open', text='FSTools Github', icon='SCRIPTPLUGINS').url='https://github.com/MarkC-b3d/FSTools'
@@ -367,6 +369,45 @@ class PIE_MT_fsops(Menu):
 #################################################################################################
 #fsops_custom operators
 #################################################################################################
+class UnrealEngine4(bpy.types.Operator):
+    bl_idname = "object.prep_ue4"
+    bl_label = "UE4 Prepare"
+    def execute(self, context):
+        bpy.ops.object.duplicate_move(OBJECT_OT_duplicate={"linked":False, "mode":'TRANSLATION'}, TRANSFORM_OT_translate={"value":(0, 0, 0), "orient_type":'GLOBAL', "orient_matrix":((0, 0, 0), (0, 0, 0), (0, 0, 0)), "orient_matrix_type":'GLOBAL', "constraint_axis":(False, False, False), "mirror":False, "use_proportional_edit":False, "proportional_edit_falloff":'SMOOTH', "proportional_size":1, "use_proportional_connected":False, "use_proportional_projected":False, "snap":False, "snap_target":'CLOSEST', "snap_point":(0, 0, 0), "snap_align":False, "snap_normal":(0, 0, 0), "gpencil_strokes":False, "cursor_transform":False, "texture_space":False, "remove_on_cancel":False, "release_confirm":False, "use_accurate":False})
+        bpy.ops.object.move_to_collection(collection_index=0, is_new=True, new_collection_name="Unreal_Engine_4")
+        bpy.ops.object.modifier_add(type='TRIANGULATE')
+
+        return {'FINISHED'}
+
+
+class FinalRender(bpy.types.Operator):
+    bl_idname = "render.final_render"
+    bl_label = "Adds all passes and switches to OpenEXR"
+    def execute(self, context):
+        bpy.context.scene.view_layers["View Layer"].use_pass_normal = True
+        bpy.context.scene.view_layers["View Layer"].use_pass_object_index = True
+        bpy.context.scene.view_layers["View Layer"].use_pass_vector = True
+        bpy.context.scene.view_layers["View Layer"].use_pass_material_index = True
+        bpy.context.scene.view_layers["View Layer"].use_pass_mist = True
+        bpy.context.scene.view_layers["View Layer"].use_pass_uv = True
+        bpy.context.scene.view_layers["View Layer"].use_pass_diffuse_direct = True
+        bpy.context.scene.view_layers["View Layer"].use_pass_diffuse_indirect = True
+        bpy.context.scene.view_layers["View Layer"].use_pass_diffuse_color = True
+        bpy.context.scene.view_layers["View Layer"].use_pass_glossy_direct = True
+        bpy.context.scene.view_layers["View Layer"].use_pass_glossy_indirect = True
+        bpy.context.scene.view_layers["View Layer"].use_pass_glossy_color = True
+        bpy.context.scene.view_layers["View Layer"].use_pass_transmission_direct = True
+        bpy.context.scene.view_layers["View Layer"].use_pass_transmission_indirect = True
+        bpy.context.scene.view_layers["View Layer"].use_pass_transmission_color = True
+        bpy.context.scene.view_layers["View Layer"].use_pass_emit = True
+        bpy.context.scene.view_layers["View Layer"].use_pass_environment = True
+        bpy.context.scene.view_layers["View Layer"].use_pass_shadow = True
+        bpy.context.scene.view_layers["View Layer"].use_pass_ambient_occlusion = True
+        bpy.context.scene.render.image_settings.file_format = 'OPEN_EXR_MULTILAYER'
+
+
+        return {'FINISHED'}
+
 class DOFAdd(bpy.types.Operator):
     bl_idname = "add.dof"
     bl_label = "Add an empty named as DOF"
@@ -767,6 +808,8 @@ classes = (
     EeveeRenOp,
     CyclesRenOp,
     WorkBenchRenOp,
+    UnrealEngine4,
+    FinalRender,
     DOFAdd,
     QuickCycles,
     ShaderSwitch,
