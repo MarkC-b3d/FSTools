@@ -33,6 +33,21 @@ class PIE_MT_init(Menu):
         pie.operator("wm.call_menu_pie", text="View Tools", icon='RESTRICT_VIEW_OFF').name = "PIE_MT_view"
         pie.operator("wm.call_menu_pie", text="File Tools", icon='FILEBROWSER').name = "PIE_MT_topbar"
 
+class PIE_MT_uv(Menu):
+
+    bl_idname = "PIE_MT_uv"
+    bl_label = "UV Tools"
+
+    def draw(self, context):
+        layout = self.layout
+
+
+        pie = layout.menu_pie()
+
+        pie.operator("wm.call_menu", text="View", icon='UV_DATA').name = "IMAGE_MT_view"
+        pie.operator("wm.call_menu", text="UV", icon='UV').name = "IMAGE_MT_uvs"
+        pie.operator("wm.call_menu", text="Image", icon='FILEBROWSER').name = "IMAGE_MT_image"
+
 #################################################################################################
 
 class PIE_MT_topbar(Menu):
@@ -724,7 +739,7 @@ classes = (
     LAYOUT_MT_editor,
     PIE_MT_fsops,
     LAYOUT_MT_community,
-    LAYOUT_MT_pipeline,
+    #LAYOUT_MT_pipeline,
     PIE_MT_view,
     PIE_MT_shading,
     PIE_MT_snap,
@@ -737,6 +752,7 @@ classes = (
     PIE_MT_reconstruction_pie,
     PIE_MT_topbar,
     PIE_MT_vef,
+    PIE_MT_uv,
     # SubstancePainter,
     # SubstanceDesigner,
     # UnrealEngine,
@@ -796,6 +812,12 @@ def register():
 
         kmi = km.keymap_items.new("wm.call_menu_pie", 'Q', 'PRESS', alt=True)
         kmi.properties.name = "PIE_MT_track"
+        addon_keymaps.append((km, kmi))
+
+        km = wm.keyconfigs.addon.keymaps.new(name = 'Image', space_type='IMAGE_EDITOR',)
+
+        kmi = km.keymap_items.new("wm.call_menu_pie", 'Q', 'PRESS', alt=True)
+        kmi.properties.name = "PIE_MT_uv"
         addon_keymaps.append((km, kmi))
 
 def unregister():
