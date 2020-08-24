@@ -87,6 +87,57 @@ class PIE_MT_render(Menu):
         pie.operator("render.engine_eevee")
         pie.operator("render.engine_cycles")
         pie.operator("render.engine_workbench")
+        pie.menu("LAYOUT_MT_renderpre")
+        pie.menu("RENDER_MT_framerate_presets")
+
+
+class LAYOUT_MT_renpre(bpy.types.Menu):
+    bl_label = "Render Presets"
+    bl_idname = "LAYOUT_MT_renderpre"
+
+    def draw(self, context):
+        layout = self.layout
+        layout.operator("render.preset_3840")
+        layout.operator("render.preset_2560")
+        layout.operator("render.preset_1920")
+        layout.operator("render.preset_1280")
+
+class RenPre3840(bpy.types.Operator):
+    bl_idname = "render.preset_3840"
+    bl_label = "3840x2160"
+    def execute(self, context):
+        bpy.context.scene.render.resolution_x = 3840
+        bpy.context.scene.render.resolution_y = 2160
+
+        return {'FINISHED'}
+
+class RenPre2560(bpy.types.Operator):
+    bl_idname = "render.preset_2560"
+    bl_label = "2560x1080"
+    def execute(self, context):
+        bpy.context.scene.render.resolution_x = 2560
+        bpy.context.scene.render.resolution_y = 1080
+
+        return {'FINISHED'}
+
+class RenPre1920(bpy.types.Operator):
+    bl_idname = "render.preset_1920"
+    bl_label = "1920x1080"
+    def execute(self, context):
+        bpy.context.scene.render.resolution_x = 1920
+        bpy.context.scene.render.resolution_y = 1080
+
+        return {'FINISHED'}
+
+
+class RenPre1280(bpy.types.Operator):
+    bl_idname = "render.preset_1280"
+    bl_label = "1280x720"
+    def execute(self, context):
+        bpy.context.scene.render.resolution_x = 1280
+        bpy.context.scene.render.resolution_y = 720
+
+        return {'FINISHED'}
 
 class EeveeRenOp(bpy.types.Operator):
     bl_idname = "render.engine_eevee"
@@ -98,7 +149,7 @@ class EeveeRenOp(bpy.types.Operator):
 
 class CyclesRenOp(bpy.types.Operator):
     bl_idname = "render.engine_cycles"
-    bl_label = "Cycles Renderer"
+    bl_label = "Cycles"
     def execute(self, context):
         bpy.context.scene.render.engine = 'CYCLES'
 
@@ -140,8 +191,7 @@ class ShaderSwitch(bpy.types.Operator):
     bl_idname = "shader.editor"
     bl_label = "Shader Editor"
     def execute(self, context):
-        bpy.ops.screen.space_type_set_or_cycle(space_type='NODE_EDITOR')
-
+        bpy.context.area.ui_type = 'ShaderNodeTree'
         return {'FINISHED'}
 
 class ViewSwitch(bpy.types.Operator):
@@ -693,6 +743,11 @@ classes = (
     # VFXNatron,
     # Autodesk3DS,
     # AutodeskMaya,
+    LAYOUT_MT_renpre,
+    RenPre3840,
+    RenPre2560,
+    RenPre1920,
+    RenPre1280,
     EeveeRenOp,
     CyclesRenOp,
     WorkBenchRenOp,
