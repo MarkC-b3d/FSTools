@@ -590,7 +590,7 @@ class SnapEdgePerp(bpy.types.Operator):
 
 class SnapClosest(bpy.types.Operator):
     bl_idname = "snap.closest"
-    bl_label = "Snap tp closest"
+    bl_label = "Snap to closest"
     def execute(self, context):
         bpy.context.scene.tool_settings.snap_target = 'CLOSEST'
 
