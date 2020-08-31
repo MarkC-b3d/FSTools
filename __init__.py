@@ -25,13 +25,28 @@ class PIE_MT_init(Menu):
 
         pie = layout.menu_pie()
 
-        pie.operator("wm.call_menu_pie", text="Snap Tools", icon='SNAP_ON').name = "PIE_MT_snap"
-        pie.operator("wm.call_menu_pie", text="Shading Tools", icon='MATSHADERBALL').name = "PIE_MT_shading"
-        pie.operator("wm.call_menu_pie", text="FS Ops", icon='SCRIPT').name = "PIE_MT_fsops"
-        pie.operator("wm.call_menu", text="Editor Tools", icon='PRESET').name = "LAYOUT_MT_editor"
-        pie.operator("wm.call_menu_pie", text="Render Tools", icon='BLENDER').name = "PIE_MT_render"
-        pie.operator("wm.call_menu_pie", text="View Tools", icon='RESTRICT_VIEW_OFF').name = "PIE_MT_view"
-        pie.operator("wm.call_menu_pie", text="File Tools", icon='FILEBROWSER').name = "PIE_MT_topbar"
+        pie.operator("wm.call_menu_pie", text="(A) Snap Tools", icon='SNAP_ON').name = "PIE_MT_snap"
+        pie.operator("wm.call_menu_pie", text="(D) Shading Tools", icon='MATSHADERBALL').name = "PIE_MT_shading"
+        pie.operator("wm.call_menu_pie", text="(S) FS Ops", icon='SCRIPT').name = "PIE_MT_fsops"
+        pie.operator("wm.call_menu", text="(W) Editor Tools", icon='PRESET').name = "LAYOUT_MT_editor"
+        pie.operator("wm.call_menu_pie", text="(Q) Render Tools", icon='BLENDER').name = "PIE_MT_render"
+        pie.operator("wm.call_menu_pie", text="(E) View Tools", icon='RESTRICT_VIEW_OFF').name = "PIE_MT_view"
+        pie.operator("wm.call_menu_pie", text="(Z) File Tools", icon='FILEBROWSER').name = "PIE_MT_topbar"
+        pie.operator("wm.call_menu_pie", text="(C) Modifier/Constraints", icon='MODIFIER').name = "PIE_MT_cmod"
+
+class PIE_MT_cmod(Menu):
+
+    bl_idname = "PIE_MT_cmod"
+    bl_label = "Constraints / Modifiers"
+
+    def draw(self, context):
+        layout = self.layout
+
+
+        pie = layout.menu_pie()
+
+        pie.operator("object.modifier_add", text="(A) Modifiers", icon='MODIFIER')
+        pie.operator("object.constraint_add", text="(D) Constraints", icon='CONSTRAINT')
 
 class PIE_MT_uv(Menu):
 
@@ -44,9 +59,9 @@ class PIE_MT_uv(Menu):
 
         pie = layout.menu_pie()
 
-        pie.operator("wm.call_menu", text="View", icon='UV_DATA').name = "IMAGE_MT_view"
-        pie.operator("wm.call_menu", text="UV", icon='UV').name = "IMAGE_MT_uvs"
-        pie.operator("wm.call_menu", text="Image", icon='FILEBROWSER').name = "IMAGE_MT_image"
+        pie.operator("wm.call_menu", text="(A) View", icon='UV_DATA').name = "IMAGE_MT_view"
+        pie.operator("wm.call_menu", text="(D) UV", icon='UV').name = "IMAGE_MT_uvs"
+        pie.operator("wm.call_menu", text="(S) Image", icon='FILEBROWSER').name = "IMAGE_MT_image"
 
 #################################################################################################
 
@@ -637,7 +652,7 @@ class PIE_MT_select(Menu):
         # operator_enum will just spread all available options
         # for the type enum of the operator on the pie
         pie.operator("mesh.select_similar", text="(A) Select Similar", icon='COPY_ID')
-        pie.operator("mesh.select_random",  text="(D) Select Random", icon='MOD_NOISE')
+        pie.operator("mesh.select_all", text="(D) Invert Selection", icon='UV_SYNC_SELECT').action='INVERT'
         pie.operator("wm.call_menu", text="(S) Select", icon='RESTRICT_SELECT_OFF').name = "VIEW3D_MT_select_edit_mesh"
         pie.operator("mesh.select_mode", text="(W) Vertex", icon='VERTEXSEL').type = 'VERT'
         pie.operator("mesh.select_mode", text="(Q) Edge", icon='EDGESEL').type = 'EDGE'
@@ -865,6 +880,7 @@ classes = (
     PIE_MT_topbar,
     PIE_MT_vef,
     PIE_MT_uv,
+    PIE_MT_cmod,
     # SubstancePainter,
     # SubstanceDesigner,
     # UnrealEngine,
