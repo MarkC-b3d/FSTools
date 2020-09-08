@@ -62,6 +62,7 @@ class PIE_MT_uv(Menu):
         pie.operator("wm.call_menu", text="(A) View", icon='UV_DATA').name = "IMAGE_MT_view"
         pie.operator("wm.call_menu", text="(D) UV", icon='UV').name = "IMAGE_MT_uvs"
         pie.operator("wm.call_menu", text="(S) Image", icon='FILEBROWSER').name = "IMAGE_MT_image"
+        pie.operator("wm.call_menu", text="(W) Editor Tools", icon='PRESET').name = "LAYOUT_MT_editor"
 
 #################################################################################################
 
@@ -536,13 +537,13 @@ class PIE_MT_snap(Menu):
 
 
         pie = layout.menu_pie()
-        pie.operator("snap.increment", text="Increment Snap", icon='SNAP_INCREMENT')
-        pie.operator("snap.edge", text="Edge Snap", icon='SNAP_EDGE')
-        pie.operator("snap.face", text="Face Snap", icon='SNAP_FACE')
-        pie.operator("snap.vertex", text="Vertex Snap", icon='SNAP_VERTEX')
-        pie.operator("snap.volume", text="Volume Snap", icon='SNAP_VOLUME')
-        pie.operator("snap_edge.midpoint", text="Vertex Snap", icon='SNAP_MIDPOINT')
-        pie.operator("snap_edge.perp", text="Vertex Snap", icon='SNAP_PERPENDICULAR')
+        pie.operator("snap.increment", text="Increment", icon='SNAP_INCREMENT')
+        pie.operator("snap.edge", text="Edge", icon='SNAP_EDGE')
+        pie.operator("snap.face", text="Face", icon='SNAP_FACE')
+        pie.operator("snap.vertex", text="Vertex", icon='SNAP_VERTEX')
+        pie.operator("snap.volume", text="Volume", icon='SNAP_VOLUME')
+        pie.operator("snap_edge.midpoint", text="Edge Midpoint", icon='SNAP_MIDPOINT')
+        pie.operator("snap_edge.perp", text="Edge Perpendicular", icon='SNAP_PERPENDICULAR')
         gap = pie.column()
         gap.separator()
         gap.separator()
