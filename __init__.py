@@ -497,6 +497,9 @@ class PIE_MT_view(Menu):
         pie.operator("wm.context_toggle",text="Show Floor", icon='GRID').data_path = "space_data.overlay.show_floor"
         pie.operator("wm.context_toggle",text="Toggle Overlays", icon='OVERLAY').data_path = "space_data.overlay.show_overlays"
         pie.operator("wm.context_toggle",text="Show Gizmo", icon='OBJECT_ORIGIN').data_path = "space_data.show_gizmo"
+        pie.operator("wm.context_toggle",text="Show Normals", icon='NORMALS_FACE').data_path = "space_data.overlay.show_face_orientation"
+        pie.operator("wm.context_toggle",text="Show Wireframe", icon='MOD_WIREFRAME').data_path = "space_data.overlay.show_wireframes"
+
 
 
 #################################################################################################
