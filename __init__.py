@@ -420,6 +420,7 @@ class PIE_MT_shading(Menu):
 
         pie.operator("object.better_smooth", text="(A) Smooth", icon='SHADING_SOLID')
         pie.operator("object.shade_flat", text="(D) Flat", icon='SHADING_RENDERED')
+        pie.operator("object.coloured_wireframe", text="(S) Coloured Wireframe", icon='SHADING_WIRE')
 
 class BetterSmooth(bpy.types.Operator):
     bl_idname = "object.better_smooth"
@@ -428,6 +429,15 @@ class BetterSmooth(bpy.types.Operator):
         bpy.ops.object.shade_smooth()
         bpy.context.object.data.use_auto_smooth = True
         bpy.context.object.data.auto_smooth_angle = 0.785398
+        return {'FINISHED'}
+
+class ColouredWireframe(bpy.types.Operator):
+    bl_idname = "object.coloured_wireframe"
+    bl_label = "Displays coloured wireframe"
+    def execute(self, context):
+        bpy.context.space_data.shading.type = 'WIREFRAME'
+        bpy.context.space_data.shading.wireframe_color_type = 'RANDOM'
+
         return {'FINISHED'}
 ################################################################################
 #PIE_MT_snap
@@ -762,7 +772,6 @@ classes = (
     LAYOUT_MT_editor,
     PIE_MT_fsops,
     LAYOUT_MT_community,
-    #LAYOUT_MT_pipeline,
     PIE_MT_view,
     PIE_MT_shading,
     PIE_MT_snap,
@@ -800,6 +809,7 @@ classes = (
     TextSwitch,
     ConsoleSwitch,
     BetterSmooth,
+    ColouredWireframe,
     SnapVertex,
     SnapFace,
     SnapEdge,
