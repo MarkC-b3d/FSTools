@@ -82,11 +82,11 @@ class PIE_MT_topbar(Menu):
 
         pie = layout.menu_pie()
 
-        pie.operator("wm.call_menu", text="File", icon='PRESET').name = "TOPBAR_MT_file"
-        pie.operator("wm.call_menu", text="Edit", icon='EDITMODE_HLT').name = "TOPBAR_MT_edit"
-        pie.operator("wm.call_menu", text="Render", icon='RESTRICT_RENDER_OFF').name = "TOPBAR_MT_render"
-        pie.operator("wm.call_menu", text="Window", icon='WINDOW').name = "TOPBAR_MT_window"
-        pie.operator("wm.call_menu", text="Help", icon='HELP').name = "TOPBAR_MT_help"
+        pie.operator("wm.call_menu", text="(1) File", icon='PRESET').name = "TOPBAR_MT_file"
+        pie.operator("wm.call_menu", text="(2) Edit", icon='EDITMODE_HLT').name = "TOPBAR_MT_edit"
+        pie.operator("wm.call_menu", text="(3) Render", icon='RESTRICT_RENDER_OFF').name = "TOPBAR_MT_render"
+        pie.operator("wm.call_menu", text="(4) Window", icon='WINDOW').name = "TOPBAR_MT_window"
+        pie.operator("wm.call_menu", text="(5) Help", icon='HELP').name = "TOPBAR_MT_help"
 
 ################################################################################
 #PIE_MT_render
@@ -298,21 +298,24 @@ class PIE_MT_fsops(Menu):
         pie = layout.menu_pie()
         # operator_enum will just spread all available options
         # for the type enum of the operator on the pie
-        pie.operator("wm.call_menu", text="Community Menu", icon='PRESET').name = "LAYOUT_MT_community"
-        pie.operator("quick.cycles", text="Quick Cycles", icon='FF')
-        pie.operator("object.prep_ue4", text="Prepare Mesh For UE4", icon='EXPORT')
-        pie.operator("render.final_render", text="Enable All Passes EXR", icon='OUTPUT')
-        pie.operator("add.dof", text="Add Empty as DOF", icon='EMPTY_AXIS')
-        pie.operator('wm.url_open', text='Order food', icon='MESH_TORUS').url='https://www.google.com/search?q=order+food+online'
-        pie.operator('wm.url_open', text='FSTools Github', icon='SCRIPTPLUGINS').url='https://github.com/MarkC-b3d/FSTools'
+        pie.operator("wm.call_menu", text="(A) Community Menu", icon='PRESET').name = "LAYOUT_MT_community"
+        pie.operator("quick.cycles", text="(D) Quick Cycles", icon='FF')
+        pie.operator("object.prep_ue4", text="(S) Prepare Mesh For UE4", icon='EXPORT')
+        pie.operator("render.final_render", text="(W) Enable All Passes EXR", icon='OUTPUT')
+        pie.operator("add.dof", text="(Q) Add Empty as DOF", icon='EMPTY_AXIS')
+        pie.operator('wm.url_open', text="(E) Order food", icon='MESH_TORUS').url='https://www.google.com/search?q=order+food+online'
+        pie.operator('wm.url_open', text='(Z) FSTools Github', icon='SCRIPTPLUGINS').url='https://github.com/MarkC-b3d/FSTools'
 
 class UnrealEngine4(bpy.types.Operator):
     bl_idname = "object.prep_ue4"
     bl_label = "UE4 Prepare"
     def execute(self, context):
-        bpy.ops.object.duplicate_move(OBJECT_OT_duplicate={"linked":False, "mode":'TRANSLATION'}, TRANSFORM_OT_translate={"value":(0, 0, 0), "orient_type":'GLOBAL', "orient_matrix":((0, 0, 0), (0, 0, 0), (0, 0, 0)), "orient_matrix_type":'GLOBAL', "constraint_axis":(False, False, False), "mirror":False, "use_proportional_edit":False, "proportional_edit_falloff":'SMOOTH', "proportional_size":1, "use_proportional_connected":False, "use_proportional_projected":False, "snap":False, "snap_target":'CLOSEST', "snap_point":(0, 0, 0), "snap_align":False, "snap_normal":(0, 0, 0), "gpencil_strokes":False, "cursor_transform":False, "texture_space":False, "remove_on_cancel":False, "release_confirm":False, "use_accurate":False})
-        bpy.ops.object.move_to_collection(collection_index=0, is_new=True, new_collection_name="Unreal_Engine_4")
+
+        obj = bpy.context.active_object
         bpy.ops.object.modifier_add(type='TRIANGULATE')
+        bpy.ops.object.duplicate_move(OBJECT_OT_duplicate={"linked":False, "mode":'TRANSLATION'}, TRANSFORM_OT_translate={"value":(0, 0, 0), "orient_type":'GLOBAL', "orient_matrix":((0, 0, 0), (0, 0, 0), (0, 0, 0)), "orient_matrix_type":'GLOBAL', "constraint_axis":(False, False, False), "mirror":False, "use_proportional_edit":False, "proportional_edit_falloff":'SMOOTH', "proportional_size":1, "use_proportional_connected":False, "use_proportional_projected":False, "snap":False, "snap_target":'CLOSEST', "snap_point":(0, 0, 0), "snap_align":False, "snap_normal":(0, 0, 0), "gpencil_strokes":False, "cursor_transform":False, "texture_space":False, "remove_on_cancel":False, "release_confirm":False, "use_accurate":False})
+        bpy.data.collections['UE4'].objects.link(obj)
+        bpy.ops.object.delete(use_global=False)
 
         return {'FINISHED'}
 
