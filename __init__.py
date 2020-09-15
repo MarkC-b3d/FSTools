@@ -14,6 +14,8 @@ import os
 import subprocess
 from bpy.types import Menu
 
+################################################################################
+#PIE_MT_init
 class PIE_MT_init(Menu):
 
     bl_idname = "PIE_MT_init"
@@ -21,7 +23,6 @@ class PIE_MT_init(Menu):
 
     def draw(self, context):
         layout = self.layout
-
 
         pie = layout.menu_pie()
 
@@ -34,6 +35,8 @@ class PIE_MT_init(Menu):
         pie.operator("wm.call_menu_pie", text="(Z) File Tools", icon='FILEBROWSER').name = "PIE_MT_topbar"
         pie.operator("wm.call_menu_pie", text="(C) Modifier/Constraints", icon='MODIFIER').name = "PIE_MT_cmod"
 
+################################################################################
+#PIE_MT_cmod
 class PIE_MT_cmod(Menu):
 
     bl_idname = "PIE_MT_cmod"
@@ -48,6 +51,8 @@ class PIE_MT_cmod(Menu):
         pie.operator("object.modifier_add", text="(A) Modifiers", icon='MODIFIER')
         pie.operator("object.constraint_add", text="(D) Constraints", icon='CONSTRAINT')
 
+################################################################################
+#PIE_MT_uv
 class PIE_MT_uv(Menu):
 
     bl_idname = "PIE_MT_uv"
@@ -64,8 +69,8 @@ class PIE_MT_uv(Menu):
         pie.operator("wm.call_menu", text="(S) Image", icon='FILEBROWSER').name = "IMAGE_MT_image"
         pie.operator("wm.call_menu", text="(W) Editor Tools", icon='PRESET').name = "LAYOUT_MT_editor"
 
-#################################################################################################
-
+################################################################################
+#PIE_MT_topbar
 class PIE_MT_topbar(Menu):
 
     bl_idname = "PIE_MT_topbar"
@@ -83,28 +88,8 @@ class PIE_MT_topbar(Menu):
         pie.operator("wm.call_menu", text="Window", icon='WINDOW').name = "TOPBAR_MT_window"
         pie.operator("wm.call_menu", text="Help", icon='HELP').name = "TOPBAR_MT_help"
 
-
-#################################################################################################
-
-class PIE_MT_track(Menu):
-
-    bl_idname = "PIE_MT_track"
-    bl_label = "Tracking Pies"
-
-    def draw(self, context):
-        layout = self.layout
-
-
-        pie = layout.menu_pie()
-
-        pie.operator("wm.call_menu_pie", text="Markers", icon='OUTLINER_OB_EMPTY').name = "PIE_MT_tracking_marker"
-        pie.operator("wm.call_menu_pie", text="Tracking", icon='DECORATE_LINKED').name = "PIE_MT_tracking_track"
-        pie.operator("wm.call_menu_pie", text="Clip Setup", icon='CAMERA_DATA').name = "PIE_MT_clipsetup_pie"
-        pie.operator("wm.call_menu_pie", text="Solver", icon='FILE_SCRIPT').name = "PIE_MT_solver_pie"
-        pie.operator("wm.call_menu_pie", text="Reconstruction", icon='MOD_BUILD').name = "PIE_MT_reconstruction_pie"
-
-####################################################################################################
-
+################################################################################
+#PIE_MT_render
 class PIE_MT_render(Menu):
 
     bl_idname = "PIE_MT_render"
@@ -125,8 +110,8 @@ class PIE_MT_render(Menu):
         menu.operator("render.engine_eevee")
         menu.operator("render.engine_cycles")
         menu.operator("render.engine_workbench")
-
-
+################################################################################
+#LAYOUT_MT_renpre
 class LAYOUT_MT_renpre(bpy.types.Menu):
     bl_label = "Render Presets"
     bl_idname = "LAYOUT_MT_renderpre"
@@ -198,10 +183,8 @@ class WorkBenchRenOp(bpy.types.Operator):
         bpy.context.scene.render.engine = 'BLENDER_WORKBENCH'
 
         return {'FINISHED'}
-
-###################################################################################################
-#Editor
-
+################################################################################
+#LAYOUT_MT_editor
 class LAYOUT_MT_editor(bpy.types.Menu):
     bl_label = "Editor Menu"
     bl_idname = "LAYOUT_MT_editor"
@@ -301,11 +284,8 @@ class ConsoleSwitch(bpy.types.Operator):
         bpy.ops.screen.space_type_set_or_cycle(space_type='CONSOLE')
 
         return {'FINISHED'}
-
-
-#################################################################################################
-#fsops
-
+################################################################################
+#PIE_MT_fsops
 class PIE_MT_fsops(Menu):
     # label is displayed at the center of the pie menu.
     bl_label = "FS Ops"
@@ -319,7 +299,6 @@ class PIE_MT_fsops(Menu):
         # operator_enum will just spread all available options
         # for the type enum of the operator on the pie
         pie.operator("wm.call_menu", text="Community Menu", icon='PRESET').name = "LAYOUT_MT_community"
-        #pie.operator("wm.call_menu", text="Pipeline Menu", icon='MESH_CYLINDER').name = "LAYOUT_MT_pipeline"
         pie.operator("quick.cycles", text="Quick Cycles", icon='FF')
         pie.operator("object.prep_ue4", text="Prepare Mesh For UE4", icon='EXPORT')
         pie.operator("render.final_render", text="Enable All Passes EXR", icon='OUTPUT')
@@ -327,69 +306,6 @@ class PIE_MT_fsops(Menu):
         pie.operator('wm.url_open', text='Order food', icon='MESH_TORUS').url='https://www.google.com/search?q=order+food+online'
         pie.operator('wm.url_open', text='FSTools Github', icon='SCRIPTPLUGINS').url='https://github.com/MarkC-b3d/FSTools'
 
-
-# class LAYOUT_MT_pipeline(bpy.types.Menu):
-#     bl_label = "Pipeline Menu"
-#     bl_idname = "LAYOUT_MT_pipeline"
-#
-#     def draw(self, context):
-#         layout = self.layout
-#
-#         layout.operator("substance.painter", icon='BRUSH_DATA')
-#         layout.operator("substance.designer", icon='NODETREE')
-#         layout.row().separator()
-#         layout.operator("autodesk.maya", icon='ORPHAN_DATA')
-#         layout.operator("autodesk.3ds", icon='ORPHAN_DATA')
-#          layout.row().separator()
-#          layout.operator("unreal.engine", icon='FUND')
-#          layout.operator("vfx.natron", icon='OUTLINER_OB_CAMERA')
-#
-#
-# class SubstancePainter(bpy.types.Operator):
-#     bl_idname = "substance.painter"
-#     bl_label = "Substance Painter"
-#     def execute(self, context):
-#         subprocess.Popen(["E:\\Substance Painter\\Substance Painter"])
-#         return {'FINISHED'}
-#
-# class SubstanceDesigner(bpy.types.Operator):
-#     bl_idname = "substance.designer"
-#     bl_label = "Substance Designer"
-#     def execute(self, context):
-#         subprocess.Popen(["E:\\Substance Designer\\Substance Designer"])
-#         return {'FINISHED'}
-#
-# class Autodesk3DS(bpy.types.Operator):
-#     bl_idname = "autodesk.3ds"
-#     bl_label = "3DS Max"
-#     def execute(self, context):
-#         subprocess.Popen(["E:\\3DS_Max\\3ds Max 2018\\3dsmax"])
-#         return {'FINISHED'}
-#
-# class AutodeskMaya(bpy.types.Operator):
-#     bl_idname = "autodesk.maya"
-#     bl_label = "Autodesk Maya"
-#     def execute(self, context):
-#         subprocess.Popen(["E:\\Maya\\Maya2018\\bin\\maya"])
-#         return {'FINISHED'}
-#
-# class UnrealEngine(bpy.types.Operator):
-#     bl_idname = "unreal.engine"
-#     bl_label = "Unreal Engine"
-#     def execute(self, context):
-#         subprocess.Popen(["D:\\Programs\\UnrealEngine\\Epic Games\\Launcher\\Portal\\Binaries\\Win64\\EpicGamesLauncher"])
-#         return {'FINISHED'}
-#
-# class VFXNatron(bpy.types.Operator):
-#     bl_idname = "vfx.natron"
-#     bl_label = "Natron"
-#     def execute(self, context):
-#         subprocess.Popen(["E:\\Natron\\Natron-2.3.14-Windows-x86_64bit-no-installer\\bin\\Natron"])
-#         return {'FINISHED'}
-
-#################################################################################################
-#fsops_custom operators
-#################################################################################################
 class UnrealEngine4(bpy.types.Operator):
     bl_idname = "object.prep_ue4"
     bl_label = "UE4 Prepare"
@@ -426,7 +342,6 @@ class FinalRender(bpy.types.Operator):
         bpy.context.scene.view_layers["View Layer"].use_pass_ambient_occlusion = True
         bpy.context.scene.render.image_settings.file_format = 'OPEN_EXR_MULTILAYER'
 
-
         return {'FINISHED'}
 
 class DOFAdd(bpy.types.Operator):
@@ -437,9 +352,6 @@ class DOFAdd(bpy.types.Operator):
         bpy.context.object.name = "DOF"
 
         return {'FINISHED'}
-
-#################################################################################################
-#quickcycles
 
 class QuickCycles(bpy.types.Operator):
     bl_idname = "quick.cycles"
@@ -455,10 +367,8 @@ class QuickCycles(bpy.types.Operator):
         bpy.context.scene.cycles.caustics_reflective = False
         bpy.context.scene.cycles.caustics_refractive = False
         return {'FINISHED'}
-
-#################################################################################################
-#communitymenu
-
+################################################################################
+#LAYOUT_MT_community
 class LAYOUT_MT_community(bpy.types.Menu):
     bl_label = "Community Menu"
     bl_idname = "LAYOUT_MT_community"
@@ -477,44 +387,34 @@ class LAYOUT_MT_community(bpy.types.Menu):
         layout.row().separator()
         layout.operator('wm.url_open', text='Artstation').url='https://www.artstation.com/'
         layout.operator('wm.url_open', text='Pinterest').url='https://www.pinterest.com/'
-
-#################################################################################################
-#viewtools
-
+################################################################################
+#PIE_MT_view
 class PIE_MT_view(Menu):
-    # label is displayed at the center of the pie menu.
     bl_label = "View Tools"
     bl_idname = "PIE_MT_view"
 
     def draw(self, context):
         layout = self.layout
 
-
         pie = layout.menu_pie()
-        # operator_enum will just spread all available options
-        # for the type enum of the operator on the pie
+
         pie.operator("wm.window_fullscreen_toggle", text="Toggle Fullscreen", icon='FULLSCREEN_ENTER')
         pie.operator("wm.context_toggle",text="Show Floor", icon='GRID').data_path = "space_data.overlay.show_floor"
         pie.operator("wm.context_toggle",text="Toggle Overlays", icon='OVERLAY').data_path = "space_data.overlay.show_overlays"
         pie.operator("wm.context_toggle",text="Show Gizmo", icon='OBJECT_ORIGIN').data_path = "space_data.show_gizmo"
         pie.operator("wm.context_toggle",text="Show Normals", icon='NORMALS_FACE').data_path = "space_data.overlay.show_face_orientation"
         pie.operator("wm.context_toggle",text="Show Wireframe", icon='MOD_WIREFRAME').data_path = "space_data.overlay.show_wireframes"
-
-
-
-#################################################################################################
-#Shading
-
+################################################################################
+#PIE_MT_shading
 class PIE_MT_shading(Menu):
-    # label is displayed at the center of the pie menu.
     bl_label = "Shading Tools"
     bl_idname = "PIE_MT_shading"
 
     def draw(self, context):
         layout = self.layout
 
-
         pie = layout.menu_pie()
+
         pie.operator("object.better_smooth", text="Smooth", icon='SHADING_SOLID')
         pie.operator("object.shade_flat", text="Flat", icon='SHADING_RENDERED')
 
@@ -526,20 +426,17 @@ class BetterSmooth(bpy.types.Operator):
         bpy.context.object.data.use_auto_smooth = True
         bpy.context.object.data.auto_smooth_angle = 0.785398
         return {'FINISHED'}
-
-#################################################################################################
-#Snapping
-
-
+################################################################################
+#PIE_MT_snap
 class PIE_MT_snap(Menu):
-    # label is displayed at the center of the pie menu.
     bl_label = "Snap Tools"
+    bl_idname = "PIE_MT_snap"
 
     def draw(self, context):
         layout = self.layout
 
-
         pie = layout.menu_pie()
+
         pie.operator("snap.increment", text="Increment", icon='SNAP_INCREMENT')
         pie.operator("snap.edge", text="Edge", icon='SNAP_EDGE')
         pie.operator("snap.face", text="Face", icon='SNAP_FACE')
@@ -640,9 +537,8 @@ class SnapActive(bpy.types.Operator):
         return {'FINISHED'}
 
 
-##################################################################################################
-#Select
-
+################################################################################
+#PIE_MT_select
 class PIE_MT_select(Menu):
     # label is displayed at the center of the pie menu.
     bl_label = "Select Tools"
@@ -664,27 +560,25 @@ class PIE_MT_select(Menu):
         pie.operator("wm.call_menu_pie", text="(Z) Snap Tools", icon='SNAP_ON').name = "PIE_MT_snap"
         pie.operator("wm.call_menu_pie", text="(C) VEF Tools", icon='FILE_SCRIPT').name = "PIE_MT_vef"
 
+################################################################################
+#PIE_MT_vef
 class PIE_MT_vef(Menu):
-    # label is displayed at the center of the pie menu.
-    bl_label = "Select Tools"
+
+    bl_label = "VEF Tools"
     bl_idname = "PIE_MT_vef"
 
     def draw(self, context):
         layout = self.layout
 
-
         pie = layout.menu_pie()
-        # operator_enum will just spread all available options
-        # for the type enum of the operator on the pie
+
         pie.operator("wm.call_menu", text="Verts", icon='VERTEXSEL').name = "VIEW3D_MT_edit_mesh_vertices"
         pie.operator("wm.call_menu", text="Edges", icon='EDGESEL').name = "VIEW3D_MT_edit_mesh_edges"
         pie.operator("wm.call_menu", text="Faces", icon='VERTEXSEL').name = "VIEW3D_MT_edit_mesh_faces"
         pie.operator("wm.call_menu", text="UV", icon='UV').name = "VIEW3D_MT_uv_map"
 
-
-##################################################################################################
-#Clip Pie
-
+################################################################################
+#PIE_MT_tracking_marker
 class PIE_MT_tracking_marker(Menu):
     # Settings for the individual markers
     bl_label = "Marker Settings"
@@ -727,10 +621,8 @@ class PIE_MT_tracking_marker(Menu):
             prop.data_path = "space_data.clip.tracking.tracks.active.pattern_match"
             prop.value = 'PREV_FRAME'
 
-
-##################################################################################################
-#Tracking
-
+################################################################################
+#PIE_MT_tracking_track
 class PIE_MT_tracking_track(Menu):
     # Tracking Operators
     bl_label = "Tracking"
@@ -756,11 +648,8 @@ class PIE_MT_tracking_track(Menu):
         # Detect Features
         pie.operator("clip.detect_features", icon='ZOOM_SELECTED')
 
-
-
-##################################################################################################
-#Clip Setup
-
+################################################################################
+#PIE_MT_clipsetup_pie
 class PIE_MT_clipsetup_pie(Menu):
     # Setup the clip display options
     bl_label = "Clip and Display Setup"
@@ -788,8 +677,8 @@ class PIE_MT_clipsetup_pie(Menu):
         # Mute Footage
         pie.prop(space, "use_mute_footage", text="Mute Footage", icon='MUTE_IPO_ON')
 
-##################################################################################################
-#Registering
+################################################################################
+#PIE_MT_solver_pie
 
 class PIE_MT_solver_pie(Menu):
     # Operators to solve the scene
@@ -829,8 +718,8 @@ class PIE_MT_solver_pie(Menu):
         prop.error = 2
 
 
-#################################################################################################
-#Registering
+################################################################################
+#PIE_MT_reconstruction_pie
 
 class PIE_MT_reconstruction_pie(Menu):
     # Scene Reconstruction
@@ -861,7 +750,7 @@ class PIE_MT_reconstruction_pie(Menu):
         # Apply Solution Scale
         pie.operator("clip.apply_solution_scale", icon='ARROW_LEFTRIGHT')
 
-#################################################################################################
+################################################################################
 #Registering
 
 classes = (
@@ -885,12 +774,6 @@ classes = (
     PIE_MT_vef,
     PIE_MT_uv,
     PIE_MT_cmod,
-    # SubstancePainter,
-    # SubstanceDesigner,
-    # UnrealEngine,
-    # VFXNatron,
-    # Autodesk3DS,
-    # AutodeskMaya,
     LAYOUT_MT_renpre,
     RenPre3840,
     RenPre2560,
@@ -971,8 +854,6 @@ def unregister():
         for km, kmi in addon_keymaps:
             km.keymap_items.remove(kmi)
     addon_keymaps.clear()
-
-#@Mark C  btw you can shorten your method with: register, unregister = bpy.utils.register_classes_factory(classes)
 
 if __name__ == "__main__":
 	register()
