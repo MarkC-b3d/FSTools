@@ -575,10 +575,10 @@ class PIE_MT_vef(Menu):
 
         pie = layout.menu_pie()
 
-        pie.operator("wm.call_menu", text="Verts", icon='VERTEXSEL').name = "VIEW3D_MT_edit_mesh_vertices"
-        pie.operator("wm.call_menu", text="Edges", icon='EDGESEL').name = "VIEW3D_MT_edit_mesh_edges"
-        pie.operator("wm.call_menu", text="Faces", icon='VERTEXSEL').name = "VIEW3D_MT_edit_mesh_faces"
-        pie.operator("wm.call_menu", text="UV", icon='UV').name = "VIEW3D_MT_uv_map"
+        pie.operator("wm.call_menu", text="(A) Verts", icon='VERTEXSEL').name = "VIEW3D_MT_edit_mesh_vertices"
+        pie.operator("wm.call_menu", text="(D) Edges", icon='EDGESEL').name = "VIEW3D_MT_edit_mesh_edges"
+        pie.operator("wm.call_menu", text="(S) Faces", icon='VERTEXSEL').name = "VIEW3D_MT_edit_mesh_faces"
+        pie.operator("wm.call_menu", text="(W) UV", icon='UV').name = "VIEW3D_MT_uv_map"
 
 ################################################################################
 #PIE_MT_tracking_marker
