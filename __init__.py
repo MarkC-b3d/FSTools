@@ -401,12 +401,12 @@ class PIE_MT_view(Menu):
 
         pie = layout.menu_pie()
 
-        pie.operator("wm.window_fullscreen_toggle", text="Toggle Fullscreen", icon='FULLSCREEN_ENTER')
-        pie.operator("wm.context_toggle",text="Show Floor", icon='GRID').data_path = "space_data.overlay.show_floor"
-        pie.operator("wm.context_toggle",text="Toggle Overlays", icon='OVERLAY').data_path = "space_data.overlay.show_overlays"
-        pie.operator("wm.context_toggle",text="Show Gizmo", icon='OBJECT_ORIGIN').data_path = "space_data.show_gizmo"
-        pie.operator("wm.context_toggle",text="Show Normals", icon='NORMALS_FACE').data_path = "space_data.overlay.show_face_orientation"
-        pie.operator("wm.context_toggle",text="Show Wireframe", icon='MOD_WIREFRAME').data_path = "space_data.overlay.show_wireframes"
+        pie.operator("wm.window_fullscreen_toggle", text="(A) Toggle Fullscreen", icon='FULLSCREEN_ENTER')
+        pie.operator("wm.context_toggle",text="(D) Show Floor", icon='GRID').data_path = "space_data.overlay.show_floor"
+        pie.operator("wm.context_toggle",text="(S) Toggle Overlays", icon='OVERLAY').data_path = "space_data.overlay.show_overlays"
+        pie.operator("wm.context_toggle",text="(W) Show Gizmo", icon='OBJECT_ORIGIN').data_path = "space_data.show_gizmo"
+        pie.operator("wm.context_toggle",text="(Q) Show Normals", icon='NORMALS_FACE').data_path = "space_data.overlay.show_face_orientation"
+        pie.operator("wm.context_toggle",text="(E) Show Wireframe", icon='MOD_WIREFRAME').data_path = "space_data.overlay.show_wireframes"
 ################################################################################
 #PIE_MT_shading
 class PIE_MT_shading(Menu):
@@ -418,8 +418,8 @@ class PIE_MT_shading(Menu):
 
         pie = layout.menu_pie()
 
-        pie.operator("object.better_smooth", text="Smooth", icon='SHADING_SOLID')
-        pie.operator("object.shade_flat", text="Flat", icon='SHADING_RENDERED')
+        pie.operator("object.better_smooth", text="(A) Smooth", icon='SHADING_SOLID')
+        pie.operator("object.shade_flat", text="(D) Flat", icon='SHADING_RENDERED')
 
 class BetterSmooth(bpy.types.Operator):
     bl_idname = "object.better_smooth"
