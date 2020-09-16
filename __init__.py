@@ -591,6 +591,25 @@ class PIE_MT_vef(Menu):
         pie.operator("wm.call_menu", text="(W) UV", icon='UV').name = "VIEW3D_MT_uv_map"
 
 ################################################################################
+#PIE_MT_track
+class PIE_MT_track(Menu):
+
+    bl_idname = "PIE_MT_track"
+    bl_label = "Tracking Pies"
+
+    def draw(self, context):
+        layout = self.layout
+
+
+        pie = layout.menu_pie()
+
+        pie.operator("wm.call_menu_pie", text="Markers", icon='OUTLINER_OB_EMPTY').name = "PIE_MT_tracking_marker"
+        pie.operator("wm.call_menu_pie", text="Tracking", icon='DECORATE_LINKED').name = "PIE_MT_tracking_track"
+        pie.operator("wm.call_menu_pie", text="Clip Setup", icon='CAMERA_DATA').name = "PIE_MT_clipsetup_pie"
+        pie.operator("wm.call_menu_pie", text="Solver", icon='FILE_SCRIPT').name = "PIE_MT_solver_pie"
+        pie.operator("wm.call_menu_pie", text="Reconstruction", icon='MOD_BUILD').name = "PIE_MT_reconstruction_pie"
+
+################################################################################
 #PIE_MT_tracking_marker
 class PIE_MT_tracking_marker(Menu):
     # Settings for the individual markers
