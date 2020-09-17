@@ -300,24 +300,33 @@ class PIE_MT_fsops(Menu):
         # for the type enum of the operator on the pie
         pie.operator("wm.call_menu", text="(A) Community Menu", icon='PRESET').name = "LAYOUT_MT_community"
         pie.operator("quick.cycles", text="(D) Quick Cycles", icon='FF')
-        pie.operator("object.prep_ue4", text="(S) Prepare Mesh For UE4", icon='EXPORT')
-        pie.operator("render.final_render", text="(W) Enable All Passes EXR", icon='OUTPUT')
-        pie.operator("add.dof", text="(Q) Add Empty as DOF", icon='EMPTY_AXIS')
-        pie.operator('wm.url_open', text="(E) Order food", icon='MESH_TORUS').url='https://www.google.com/search?q=order+food+online'
-        pie.operator('wm.url_open', text='(Z) FSTools Github', icon='SCRIPTPLUGINS').url='https://github.com/MarkC-b3d/FSTools'
+        pie.operator("render.final_render", text="(Q) Enable All Passes EXR", icon='OUTPUT')
+        pie.operator("add.dof", text="(W) Add Empty as DOF", icon='EMPTY_AXIS')
+        pie.operator('wm.url_open', text="(Q) Order food", icon='MESH_TORUS').url='https://www.google.com/search?q=order+food+online'
+        pie.operator('wm.url_open', text='(E) FSTools Github', icon='SCRIPTPLUGINS').url='https://github.com/MarkC-b3d/FSTools'
 
-class UnrealEngine4(bpy.types.Operator):
-    bl_idname = "object.prep_ue4"
-    bl_label = "UE4 Prepare"
-    def execute(self, context):
+#CollectionManager
+class LAYOUT_MT_collectionmanager(bpy.types.Menu):
+    bl_label = "Collection Manager"
+    bl_idname = "LAYOUT_MT_collectionmanager"
 
-        obj = bpy.context.active_object
-        bpy.ops.object.modifier_add(type='TRIANGULATE')
-        bpy.ops.object.duplicate_move(OBJECT_OT_duplicate={"linked":False, "mode":'TRANSLATION'}, TRANSFORM_OT_translate={"value":(0, 0, 0), "orient_type":'GLOBAL', "orient_matrix":((0, 0, 0), (0, 0, 0), (0, 0, 0)), "orient_matrix_type":'GLOBAL', "constraint_axis":(False, False, False), "mirror":False, "use_proportional_edit":False, "proportional_edit_falloff":'SMOOTH', "proportional_size":1, "use_proportional_connected":False, "use_proportional_projected":False, "snap":False, "snap_target":'CLOSEST', "snap_point":(0, 0, 0), "snap_align":False, "snap_normal":(0, 0, 0), "gpencil_strokes":False, "cursor_transform":False, "texture_space":False, "remove_on_cancel":False, "release_confirm":False, "use_accurate":False})
-        bpy.data.collections['UE4'].objects.link(obj)
-        bpy.ops.object.delete(use_global=False)
+    def draw(self, _context):
+        layout = self.layout
 
-        return {'FINISHED'}
+        layout.operator("object.move_to_collection")
+        layout.operator("object.link_to_collection")
+
+        layout.separator()
+
+        layout.operator("collection.create")
+        # layout.operator_menu_enum("collection.objects_remove", "collection")  # BUGGY
+        layout.operator("collection.objects_remove")
+        layout.operator("collection.objects_remove_all")
+
+        layout.separator()
+
+        layout.operator("collection.objects_add_active")
+        layout.operator("collection.objects_remove_active")
 
 
 class FinalRender(bpy.types.Operator):
