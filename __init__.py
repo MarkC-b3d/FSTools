@@ -822,7 +822,6 @@ classes = (
     EeveeRenOp,
     CyclesRenOp,
     WorkBenchRenOp,
-    UnrealEngine4,
     FinalRender,
     DOFAdd,
     QuickCycles,
