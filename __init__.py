@@ -416,6 +416,8 @@ class PIE_MT_view(Menu):
         pie.operator("wm.context_toggle",text="(W) Show Gizmo", icon='OBJECT_ORIGIN').data_path = "space_data.show_gizmo"
         pie.operator("wm.context_toggle",text="(Q) Show Normals", icon='NORMALS_FACE').data_path = "space_data.overlay.show_face_orientation"
         pie.operator("wm.context_toggle",text="(E) Show Wireframe", icon='MOD_WIREFRAME').data_path = "space_data.overlay.show_wireframes"
+        pie.operator("wm.context_toggle",text="(Z) Show Statistics", icon='STATUSBAR').data_path = "space_data.overlay.show_stats"
+        pie.operator("wm.context_toggle",text="(C) Show Cavity", icon='MOD_BEVEL').data_path = "space_data.shading.show_cavity"
 ################################################################################
 #PIE_MT_shading
 class PIE_MT_shading(Menu):
