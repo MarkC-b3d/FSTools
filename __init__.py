@@ -300,7 +300,7 @@ class PIE_MT_fsops(Menu):
         # for the type enum of the operator on the pie
         pie.operator("wm.call_menu", text="(A) Community Menu", icon='PRESET').name = "LAYOUT_MT_community"
         pie.operator("quick.cycles", text="(D) Quick Cycles", icon='FF')
-        pie.operator("render.final_render", text="(Q) Enable All Passes EXR", icon='OUTPUT')
+        pie.operator("render.final_render", text="(S) Enable All Passes EXR", icon='OUTPUT')
         pie.operator("add.dof", text="(W) Add Empty as DOF", icon='EMPTY_AXIS')
         pie.operator('wm.url_open', text="(Q) Order food", icon='MESH_TORUS').url='https://www.google.com/search?q=order+food+online'
         pie.operator('wm.url_open', text='(E) FSTools Github', icon='SCRIPTPLUGINS').url='https://github.com/MarkC-b3d/FSTools'
