@@ -576,7 +576,7 @@ class PIE_MT_select(Menu):
         # operator_enum will just spread all available options
         # for the type enum of the operator on the pie
         pie.operator("mesh.select_similar", text="(A) Select Similar", icon='COPY_ID')
-        pie.operator("mesh.target_weld", text="(D) Target Weld", icon='AUTOMERGE_ON').action = 'INVERT'
+        pie.operator("mesh.target_weld", text="(D) Target Weld", icon='AUTOMERGE_ON')
         pie.operator("wm.call_menu", text="(S) Select", icon='RESTRICT_SELECT_OFF').name = "VIEW3D_MT_select_edit_mesh"
         pie.operator("mesh.select_mode", text="(W) Vertex", icon='VERTEXSEL').type = 'VERT'
         pie.operator("mesh.select_mode", text="(Q) Edge", icon='EDGESEL').type = 'EDGE'
