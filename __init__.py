@@ -2,7 +2,7 @@ bl_info = {
     "name": "FS Tools",
     "description": "FSTools is a collection of pie menus to accomodate a fast and efficient workflow in fullscreen",
     "author": "Mark C | Antony Riakiotakis, Sebastian Koenig - Motion Tracking Pie",
-    "version": (1, 0, 0),
+    "version": (5, 0, 0),
     "blender": (2, 90, 0),
     "location": "ALT + Q",
     "warning": "",
@@ -576,7 +576,7 @@ class PIE_MT_select(Menu):
         # operator_enum will just spread all available options
         # for the type enum of the operator on the pie
         pie.operator("mesh.select_similar", text="(A) Select Similar", icon='COPY_ID')
-        pie.operator("mesh.select_all", text="(D) Invert Selection", icon='UV_SYNC_SELECT').action='INVERT'
+        pie.operator("mesh.target_weld", text="(D) Target Weld", icon='AUTOMERGE_ON').action = 'INVERT'
         pie.operator("wm.call_menu", text="(S) Select", icon='RESTRICT_SELECT_OFF').name = "VIEW3D_MT_select_edit_mesh"
         pie.operator("mesh.select_mode", text="(W) Vertex", icon='VERTEXSEL').type = 'VERT'
         pie.operator("mesh.select_mode", text="(Q) Edge", icon='EDGESEL').type = 'EDGE'
@@ -585,6 +585,18 @@ class PIE_MT_select(Menu):
         pie.operator("wm.call_menu_pie", text="(C) VEF Tools", icon='FILE_SCRIPT').name = "PIE_MT_vef"
 
 ################################################################################
+
+
+class TargetWeld(bpy.types.Operator):
+    bl_idname = "mesh.target_weld"
+    bl_label = "Target Weld"
+
+    def execute(self, context):
+        bpy.context.scene.tool_settings.snap_elements = {'VERTEX'}
+        bpy.context.scene.tool_settings.use_mesh_automerge = True
+
+        return {'FINISHED'}
+
 #PIE_MT_vef
 class PIE_MT_vef(Menu):
 
@@ -850,6 +862,7 @@ classes = (
     SnapMedian,
     SnapActive,
     SnapClosest,
+    TargetWeld
     )
 
 addon_keymaps = []
